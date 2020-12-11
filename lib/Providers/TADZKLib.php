@@ -107,6 +107,12 @@ class TADZKLib
      * @var array commands set supported by <code>TADZKLib</code> class.
      */
     static private $zklib_commands = [
+        'clear_att_log' => [
+            'command_id' => self::CMD_CLEAR_ATTLOG,
+            'command_string' => '~ClearAttLog',
+            'should_disconnect' => true,
+            'result_filter_string'=>'~ClearAttLog='
+        ],
         'get_platform' => [
             'command_id' => self::CMD_DEVICE,
             'command_string' => '~Platform',
@@ -519,13 +525,16 @@ class TADZKLib
         $u = unpack('S', $this->createChkSum($buf));
 
         if (is_array($u)) {
-            while (list($key) = each($u)) {
-                $u = $u[$key];
-                break;
+            // while (list($key) = each($u)) {
+            //     $u = $u[$key];
+            //     break;
+            // }
+            foreach( (Array) $u as $key) {
+                $temp = $key;
             }
         }
 
-        $chksum = $u;
+        $chksum = $temp;
         $reply_id += 1;
 
         if ($reply_id >= self::USHRT_MAX) {
